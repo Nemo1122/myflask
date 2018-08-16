@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}注册{% endblock title %}
+{% block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+{% endblock styles %}
+{% block navli %}
+    <ul class="nav navbar-nav navbar-right">
+        {% if session.is_login %}
+            <li><a href="/">您好！{{ session.name }}</a></li>
+            <li><a href="/logout">退出</a><li>
+            {% else %}
+            <li><a href="/">您好！</a></li>
+            <li><a href="/login">登录</a></li>
+            <li class="active"><a href="#">注册</a></li>
+        {% endif %}
+    </ul>
+{% endblock navli %}
+{% block content %}
+    <div class="container form-login">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <form action="/register" method="post" class="form-login">
+        <div class="form-group">
+            <label for="id_username">用户名</label>
+            <input type="text" class="form-control" name="username" id="id_username" placeholder="输入用户名" {% if username %}value="{{ username }}"{% endif %} autofocus required>
+        </div>
+        <div class="form-group">
+            <label for="id_password">密码</label>
+            <input type="password" class="form-control" name="password" id="id_password" placeholder="输入密码" required>
+        </div>
+        <div class="form-group">
+            <label for="id_confirm">确认密码</label>
+            <input type="password" class="form-control" name="confirm" id="id_confirm" placeholder="输入确认密码" required>
+        </div>
+        <div class="form-group">
+            <button type="reset" class="btn btn-default pull-left">重置</button>
+            <button type="submit" class="btn btn-primary pull-right">提交</button>
+        </div>
+    </form>
+
+{% endblock content %}

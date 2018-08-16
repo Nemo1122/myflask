@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}登录{% endblock title %}
+{% block styles %}
+    {{ super() }}
+    <!-- url_for函数，加载静态文件-->
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+{% endblock styles %}
+{% block navli %}
+    <ul class="nav navbar-nav navbar-right">
+        {% if session.is_login %}
+            <li><a href="/">您好！{{ session.name }}</a></li>
+            <li><a href="/logout">退出</a><li>
+            {% else %}
+            <li><a href="/">您好！</a></li>
+            <li class="active"><a href="#">登录</a></li>
+            <li><a href="/register">注册</a></li>
+        {% endif %}
+    </ul>
+{% endblock navli %}
+{% block content %}
+    <div class="container form-login">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <form action="/login" method="post" class="form-login">
+        <div class="form-group">
+            <label for="id_username">用户名</label>
+            <input type="text" class="form-control" name="username" id="id_username" placeholder="输入用户名" autofocus required>
+        </div>
+        <div class="form-group">
+            <label for="id_password">密码</label>
+            <input type="password" class="form-control" name="password" id="id_password" placeholder="输入密码" required>
+        </div>
+        <div class="form-group">
+            <button type="reset" class="btn btn-default pull-left">重置</button>
+            <button type="submit" class="btn btn-primary pull-right">登录</button>
+        </div>
+    </form>
+
+{% endblock %}

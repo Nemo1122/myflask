@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+
+    {% if session.is_login %}
+        <h1>{{ session.name }}欢迎回来！</h1>
+        <a href="/logout">退出</a>
+    {% else %}
+        <h1>请先登录！</h1>
+        <a href="/login">登录</a>
+    {% endif %}
+
+
+</body>
+</html>

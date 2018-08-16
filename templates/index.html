@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}主页{% endblock %}
+{% block navli %}
+    <ul class="nav navbar-nav navbar-right">
+        {% if session.is_login %}
+            <li><a href="/">您好！{{ session.name }}</a></li>
+            <li><a href="/logout">退出</a><li>
+            {% else %}
+            <li><a href="/">您好！</a></li>
+            <li><a href="/login">登录</a></li>
+            <li><a href="/register">注册</a></li>
+        {% endif %}
+    </ul>
+{% endblock navli %}
+{% block content %}
+    <div class="container text-center">
+        {% if session.is_login %}
+            <h1>{{ session.name }}欢迎回来！</h1>
+        {% else %}
+            <h1>请先登录！</h1>
+        {% endif %}
+    </div>
+{% endblock %}
